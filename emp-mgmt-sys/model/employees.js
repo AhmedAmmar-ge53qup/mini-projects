@@ -1,38 +1,33 @@
-import { db } from "@/init-firestore";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-
+import prisma from "@/prisma/prisma";
 
 export async function getEmployees() {
-    // Reference to the 'employees' collection in Firestore
-    const employeesCollectionRef = collection(db, "employees");
-
     try {
-        // Fetch all documents from the employees collection
-        const querySnapshot = await getDocs(employeesCollectionRef);
-
-        // Map through the documents to extract data and return it in an array
-        const employees = querySnapshot.docs.map(doc => ({
-            id: doc.id, // Document ID (important if you need to update or delete)
-            ...doc.data(), // Data of the employee document
-        }));
-
+        const employees = await prisma.employee.findMany();
         return employees;
     } catch (error) {
-        console.error("Error fetching employees: ", error);
-        return []; // Return empty array if there's an error
+        console.log(`Failed to get employees: ${error}`);
+        return [];
     }
 }
 
-export async function deleteEmployee(id) {
+export async function addEmployee(emp) {
     try {
-        // Reference to the document in the 'employees' collection
-        const employeeDocRef = doc(db, "employees", id);
-
-        // Delete the document
-        await deleteDoc(employeeDocRef);
-
-        console.log(`Employee with ID ${id} deleted successfully.`);
+        const employee = await prisma.employee.create({data: emp});
+        console.log(`Employee ${employee.id} was added`);
+        return employee;
     } catch (error) {
-        console.error("Error deleting employee: ", error);
+        console.log(`Failed to add employee: ${error}`);
+        return {};
+    }
+}
+
+export async function deleteEmployee(id) {    
+    try {
+        const employee = await prisma.employee.delete({where: {id}})
+        console.log(`Employee ${employee.id} was deleted`);
+        return employee;
+    } catch (error) {
+        console.log(`Failed to delete employee: ${error}`);
+        return {};
     }
 }

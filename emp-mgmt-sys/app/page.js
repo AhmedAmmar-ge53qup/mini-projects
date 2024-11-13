@@ -1,7 +1,8 @@
 import EmployeesTable from "@/components/table/EmployeesTable";
 import { Container, Grid2, Typography, TextField } from "@mui/material";
 
-export default function Home() {
+export default async function Home() {
+
   return (
     <Container
       sx={{
