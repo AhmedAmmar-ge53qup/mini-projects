@@ -20,18 +20,11 @@ export default async function EmployeesTable() {
   async function handleEdit(formData) {
     "use server"
     const id = formData.get('id');
-    console.log(`Editing ${id}`);
-    // TODO
+    redirect(`/crud-emp/update?id=${id}`);
   };
 
   return (
-    <>
-      <Link href="/add-emp">
-        <Button variant="contained" color="primary" style={{ marginBottom: '20px' }}>
-          Add Employee
-        </Button>
-      </Link>
-      
+    <>      
       <TableContainer component={Paper}>
         <Table>
           <TableHead>

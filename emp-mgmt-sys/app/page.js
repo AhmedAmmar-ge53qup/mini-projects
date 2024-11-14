@@ -1,5 +1,6 @@
 import EmployeesTable from "@/components/table/EmployeesTable";
-import { Container, Grid2, Typography, TextField } from "@mui/material";
+import { Container, Grid2, Typography, TextField, Button } from "@mui/material";
+import Link from "next/link";
 
 export default async function Home() {
 
@@ -30,6 +31,11 @@ export default async function Home() {
       />
 
       <Grid2 container sx={{ width: "100%", maxWidth: 1200 }}>
+        <Link href="/crud-emp/add">
+          <Button variant="contained" color="primary" style={{ marginBottom: '20px' }}>
+            Add Employee
+          </Button>
+        </Link>
         <EmployeesTable />
       </Grid2>
     </Container>
