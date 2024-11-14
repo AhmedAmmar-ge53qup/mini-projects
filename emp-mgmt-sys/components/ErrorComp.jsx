@@ -2,7 +2,6 @@ import { Alert, AlertTitle, Box, Typography } from '@mui/material';
 import Link from 'next/link';
 
 export default function ErrorComp({ error, goBackPath }) {
-  if (!error) return null; // If no error is passed, render nothing
 
   return (
     <Box sx={{ padding: 2 }}>
