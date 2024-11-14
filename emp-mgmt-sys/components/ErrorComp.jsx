@@ -1,8 +1,8 @@
 import { Alert, AlertTitle, Box, Typography } from '@mui/material';
+import Link from 'next/link';
 
-export default function ErrorComp({ error }) {
+export default function ErrorComp({ error, goBackPath }) {
   if (!error) return null; // If no error is passed, render nothing
-  
 
   return (
     <Box sx={{ padding: 2 }}>
@@ -32,6 +32,15 @@ export default function ErrorComp({ error }) {
             </ul>
           </Box>
         )}
+
+        {/* Link to homepage */}
+        <Box sx={{ marginTop: 2 }}>
+          <Link href={goBackPath ?? "/"}>
+            <Typography variant="body2" sx={{ color: 'primary.main', textDecoration: 'underline' }}>
+              Go back to homepage
+            </Typography>
+          </Link>
+        </Box>
       </Alert>
     </Box>
   );
