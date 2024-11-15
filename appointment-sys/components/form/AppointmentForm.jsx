@@ -4,6 +4,7 @@ import Step1 from '@/components/form/Step1';
 import Step2 from '@/components/form/Step2';
 import Step3 from '@/components/form/Step3';
 import Step4 from '@/components/form/Step4';
+import FinalStep from '@/components/form/FinalStep';  // Import FinalStep component
 import { useState } from 'react';
 
 export default function AppointmentForm() {
@@ -30,6 +31,8 @@ export default function AppointmentForm() {
         service: '',
     });
 
+    const [isSubmitted, setIsSubmitted] = useState(false);  // Track if form is successfully submitted
+
     // Step titles
     const steps = ['Personal Information', 'Contact Details', 'Appointment Details', 'Review & Submit'];
 
@@ -42,7 +45,9 @@ export default function AppointmentForm() {
             return;
         }
         console.log({ ...formData, appointmentDate, status, service });
-        // Proceed to final submission (API call, etc.)
+        // Simulate form submission (you could replace this with an actual API call)
+        setIsSubmitted(true);
+        setActiveStep(4); // Go to the FinalStep after successful submission
     }
 
     // Handle next step
@@ -102,6 +107,7 @@ export default function AppointmentForm() {
         return !Object.values(errors).some(error => error !== ''); // Return true if no errors
     };
 
+    // Handle Enter key press (skip next step if validation fails)
     function handlePressEnter(e) {
         if (e.key === 'Enter') {
             e.preventDefault(); // Prevent default Enter key behavior (form submission)
@@ -118,6 +124,21 @@ export default function AppointmentForm() {
         }
     }
 
+    // Handle Restart (to start a new appointment)
+    const handleRestart = () => {
+        setIsSubmitted(false);
+        setActiveStep(0);
+        setFormData({
+            fullName: '',
+            email: '',
+            phone: '',
+            notes: ''
+        });
+        setStatus('');
+        setService('');
+        setAppointmentDate(null);
+    };
+
     return (
         <Box sx={{ maxWidth: 600, margin: 'auto', padding: 3 }}>
             {/* Stepper */}
@@ -131,52 +152,39 @@ export default function AppointmentForm() {
 
             <form onSubmit={handleSubmit} onKeyDown={handlePressEnter}>
                 <Grid2 container flexDirection="column" spacing={3}>
-
                     {/* Step 1: Personal Information */}
-                    {activeStep === 0 && (
-                        <Step1 formData={formData} formErrors={formErrors} handleChange={handleChange} />
-                    )}
-
+                    {activeStep === 0 && <Step1 formData={formData} formErrors={formErrors} handleChange={handleChange} />}
                     {/* Step 2: Contact Details */}
-                    {activeStep === 1 && (
-                        <Step2 formData={formData} formErrors={formErrors} handleChange={handleChange} />
-                    )}
-
+                    {activeStep === 1 && <Step2 formData={formData} formErrors={formErrors} handleChange={handleChange} />}
                     {/* Step 3: Appointment Details */}
                     {activeStep === 2 && (
-                        <Step3 formErrors={formErrors}
+                        <Step3
+                            formErrors={formErrors}
                             status={status}
                             setStatus={setStatus}
                             service={service}
                             setService={setService}
                             appointmentDate={appointmentDate}
-                            setAppointmentDate={setAppointmentDate} />
+                            setAppointmentDate={setAppointmentDate}
+                        />
                     )}
-
                     {/* Step 4: Review & Submit */}
-                    {activeStep === 3 && (
-                        <Step4 formData={formData} handleChange={handleChange} />
-                    )}
+                    {activeStep === 3 && <Step4 formData={formData} handleChange={handleChange} />}
+                    
+                    {/* Final Step (Success message) */}
+                    {activeStep === 4 && <FinalStep onRestart={handleRestart} />}
 
                     {/* Navigation Buttons */}
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        {activeStep > 0 && (
-                            <Button onClick={handleBack} variant="outlined">
-                                Back
+                    {activeStep < 4 && (
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                            {activeStep > 0 && <Button onClick={handleBack} variant="outlined">Back</Button>}
+                            <Button onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext} variant="contained" color="primary">
+                                {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
                             </Button>
-                        )}
-
-                        <Button
-                            onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
-                            variant="contained"
-                            color="primary"
-                        >
-                            {activeStep === steps.length - 1 ? 'Submit' : 'Next'}
-                        </Button>
-                    </Box>
+                        </Box>
+                    )}
                 </Grid2>
             </form>
         </Box>
     );
 }
-
