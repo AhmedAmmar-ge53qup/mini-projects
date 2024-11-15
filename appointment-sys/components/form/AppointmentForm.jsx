@@ -169,8 +169,7 @@ export default function AppointmentForm() {
                         />
                     )}
                     {/* Step 4: Review & Submit */}
-                    {activeStep === 3 && <Step4 formData={formData} handleChange={handleChange} />}
-                    
+                    {activeStep === 3 && <Step4 formData={formData} handleChange={handleChange} status={status} service={service} appointmentDate={appointmentDate} />}
                     {/* Final Step (Success message) */}
                     {activeStep === 4 && <FinalStep onRestart={handleRestart} />}
 
