@@ -101,6 +101,22 @@ export default function Home() {
     return !Object.values(errors).some(error => error !== ''); // Return true if no errors
   };
 
+  function handlePressEnter(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault(); // Prevent default Enter key behavior (form submission)
+      
+      // If it's the final step, submit the form
+      if (activeStep === steps.length - 1) {
+        handleSubmit(e); // Submit the form on the last step
+      } else {
+        // Validate the current step before going to the next one
+        if (validateStep()) {
+          handleNext(); // Proceed to the next step if validation passes
+        }
+      }
+  }
+}
+
   return (
     <Box sx={{ maxWidth: 600, margin: 'auto', padding: 3 }}>
       {/* Stepper */}
@@ -112,7 +128,7 @@ export default function Home() {
         ))}
       </Stepper>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}  onKeyDown={handlePressEnter}>
         <Grid2 container flexDirection="column" spacing={3}>
 
           {/* Step 1: Personal Information */}
