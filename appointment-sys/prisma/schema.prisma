@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+model Appointment {
+  id              Int      @id @default(autoincrement())
+  email           String   @unique
+  phone           String   @unique
+  fullName        String
+  appointmentDate DateTime
+  status          String   // Status of the appointment (e.g., "Pending", "Confirmed", "Completed")
+  service         String   // Type of service requested (e.g., "Consultation", "Check-up", "Meeting")
+  notes           String?  // Optional notes or comments (e.g., special requests)
+  createdAt       DateTime @default(now())  // Timestamp for when the appointment was created
+  updatedAt       DateTime @updatedAt        // Automatically updated timestamp for any changes
+}
