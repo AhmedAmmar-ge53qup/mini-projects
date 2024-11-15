@@ -1,9 +1,10 @@
 "use client"
 import { useState } from 'react';
-import { TextField, Button, Grid2, FormControl, InputLabel, Select, MenuItem, Typography, Box, Stepper, Step, StepLabel } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { Button, Grid2, Box, Stepper, Step, StepLabel } from '@mui/material';
+import Step1 from '@/components/form/Step1';
+import Step2 from '@/components/form/Step2';
+import Step3 from '@/components/form/Step3';
+import Step4 from '@/components/form/Step4';
 
 export default function Home() {
   const [activeStep, setActiveStep] = useState(0); // Track current step in Stepper
@@ -133,124 +134,28 @@ export default function Home() {
 
           {/* Step 1: Personal Information */}
           {activeStep === 0 && (
-            <>
-              <TextField
-                name="fullName"
-                label="Full Name"
-                variant="outlined"
-                fullWidth
-                placeholder="Enter your full name"
-                value={formData.fullName}
-                onChange={handleChange}
-                error={!!formErrors.fullName}
-                helperText={formErrors.fullName}
-                required
-              />
-              <TextField
-                name="email"
-                label="Email"
-                variant="outlined"
-                type="email"
-                fullWidth
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleChange}
-                error={!!formErrors.email}
-                helperText={formErrors.email}
-                required
-              />
-            </>
+            <Step1 formData={formData} formErrors={formErrors} handleChange={handleChange} />
           )}
 
           {/* Step 2: Contact Details */}
           {activeStep === 1 && (
-            <>
-              <TextField
-                name="phone"
-                label="Phone"
-                variant="outlined"
-                type="tel"
-                fullWidth
-                placeholder="Enter your phone number"
-                value={formData.phone}
-                onChange={handleChange}
-                error={!!formErrors.phone}
-                helperText={formErrors.phone}
-                required
-              />
-            </>
+            <Step2 formData={formData} formErrors={formErrors} handleChange={handleChange} />
           )}
 
           {/* Step 3: Appointment Details */}
           {activeStep === 2 && (
-            <>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateTimePicker
-                  name="appointmentDate"
-                  renderInput={(props) => <TextField {...props} />}
-                  label="Appointment Date"
-                  value={appointmentDate}
-                  onChange={setAppointmentDate} // Update state on change
-                  error={!!formErrors.appointmentDate}
-                  helperText={formErrors.appointmentDate}
-                  required
-                  inputProps={{
-                    min: new Date().toISOString().split("T")[0], // Prevent selecting past dates
-                  }}
-                  fullWidth
-                />
-              </LocalizationProvider>
-
-              <FormControl fullWidth variant="outlined" required error={!!formErrors.status}>
-                <InputLabel>Status</InputLabel>
-                <Select
-                  name="status"
-                  label="Status"
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                >
-                  <MenuItem value="pending">Pending</MenuItem>
-                  <MenuItem value="confirmed">Confirmed</MenuItem>
-                  <MenuItem value="completed">Completed</MenuItem>
-                </Select>
-                {formErrors.status && <Typography variant="body2" color="error">{formErrors.status}</Typography>}
-              </FormControl>
-
-              <FormControl fullWidth variant="outlined" required error={!!formErrors.service}>
-                <InputLabel>Service</InputLabel>
-                <Select
-                  name="service"
-                  label="Service"
-                  value={service}
-                  onChange={(e) => setService(e.target.value)}
-                >
-                  <MenuItem value="consultation">Consultation</MenuItem>
-                  <MenuItem value="meeting">Meeting</MenuItem>
-                  <MenuItem value="check-up">Check-up</MenuItem>
-                </Select>
-                {formErrors.service && <Typography variant="body2" color="error">{formErrors.service}</Typography>}
-              </FormControl>
-            </>
+            <Step3 formErrors={formErrors}
+              status={status}
+              setStatus={setStatus}
+              service={service}
+              setService={setService}
+              appointmentDate={appointmentDate}
+              setAppointmentDate={setAppointmentDate} />
           )}
 
           {/* Step 4: Review & Submit */}
           {activeStep === 3 && (
-            <>
-              <TextField
-                name="notes"
-                label="Notes"
-                variant="outlined"
-                fullWidth
-                multiline
-                rows={4}
-                placeholder="Enter any special requests or notes"
-                value={formData.notes}
-                onChange={handleChange}
-                inputProps={{
-                  maxLength: 500, // Limit notes to 500 characters
-                }}
-              />
-            </>
+            <Step4 formData={formData} handleChange={handleChange} />
           )}
 
           {/* Navigation Buttons */}
