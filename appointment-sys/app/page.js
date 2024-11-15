@@ -79,7 +79,7 @@ export default function Home() {
 
       case 1:
         // Validate phone
-        errors.phone = !/^\+\d{1,3} \d{1,14}$/.test(formData.phone) ? 'Phone number format is invalid.' : '';
+        errors.phone = !/^\+\d{1,3} \d{1,14}$/.test(formData.phone) ? 'Format must match: +999 9999999' : '';
         break;
 
       case 2:
