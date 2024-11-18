@@ -6,6 +6,7 @@ import Step3 from '@/components/form/Step3';
 import Step4 from '@/components/form/Step4';
 import FinalStep from '@/components/form/FinalStep';  // Import FinalStep component
 import { useState } from 'react';
+import axios from 'axios';
 
 export default function AppointmentForm() {
     const [activeStep, setActiveStep] = useState(0); // Track current step in Stepper
@@ -31,8 +32,6 @@ export default function AppointmentForm() {
         service: '',
     });
 
-    const [isSubmitted, setIsSubmitted] = useState(false);  // Track if form is successfully submitted
-
     // Step titles
     const steps = ['Personal Information', 'Contact Details', 'Appointment Details', 'Review & Submit'];
 
@@ -44,9 +43,12 @@ export default function AppointmentForm() {
             console.log('Please correct the errors before submitting.');
             return;
         }
-        console.log({ ...formData, appointmentDate, status, service });
-        // Simulate form submission (you could replace this with an actual API call)
-        setIsSubmitted(true);
+        
+        axios.post('/api/appointments', { ...formData, appointmentDate, status, service }).then(res => {
+            console.log("Appointment Added: ");
+            console.log({ ...formData, appointmentDate, status, service });
+        }).catch(err => console.error(err));
+
         setActiveStep(4); // Go to the FinalStep after successful submission
     }
 
@@ -126,7 +128,6 @@ export default function AppointmentForm() {
 
     // Handle Restart (to start a new appointment)
     const handleRestart = () => {
-        setIsSubmitted(false);
         setActiveStep(0);
         setFormData({
             fullName: '',
