@@ -8,6 +8,7 @@ import {
   TableRow,
   Paper,
   Container,
+  Typography, // Import Typography to add the title
 } from "@mui/material";
 
 export default async function AppointmentsPage() {
@@ -20,8 +21,15 @@ export default async function AppointmentsPage() {
         justifyContent: "center", // Center horizontally
         alignItems: "center", // Center vertically
         minHeight: "100vh", // Ensures full viewport height
+        flexDirection: "column", // Stack the content vertically
+        gap: 3, // Adds space between the title and table
       }}
     >
+      {/* Title above the table */}
+      <Typography variant="h5" sx={{ fontWeight: 600 }}>
+        Appointment List
+      </Typography>
+
       <TableContainer
         component={Paper}
         sx={{
