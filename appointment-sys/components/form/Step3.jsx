@@ -1,8 +1,9 @@
 import { FormControl, InputLabel, MenuItem, Select, TextField, Typography } from "@mui/material"
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
+import dayjs from "dayjs"
 
-export default function Step3({formErrors, status, setStatus, service, setService, appointmentDate, setAppointmentDate}) {
+export default function Step3({ formErrors, status, setStatus, service, setService, appointmentDate, setAppointmentDate }) {
 
     return (
         <>
@@ -19,7 +20,9 @@ export default function Step3({formErrors, status, setStatus, service, setServic
                     inputProps={{
                         min: new Date().toISOString().split("T")[0], // Prevent selecting past dates
                     }}
+                    minDate={dayjs()} // Prevent selecting past dates (today)
                     fullWidth
+                    views={['hours']} // Allow only the hour to be selected
                 />
             </LocalizationProvider>
 
