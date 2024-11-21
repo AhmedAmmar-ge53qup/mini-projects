@@ -8,6 +8,31 @@ export async function getAppointmentById(id) {
   return await prisma.appointment.findUnique({ where: { id } });
 }
 
+export async function getExistingAppointmentsTimes(selectedDate) {
+  // Parse the selectedDate into a Date object
+  const date = new Date(selectedDate);
+  const startOfDay = new Date(date.setHours(0, 0, 0, 0));
+  const endOfDay = new Date(date.setHours(23, 59, 59, 999));
+
+  // Query the database for appointments within the selected date range
+  const appointments = await prisma.appointment.findMany({
+    where: {
+      appointmentDate: {
+        gte: startOfDay,
+        lte: endOfDay,
+      },
+    },
+    select: {
+      appointmentDate: true, // Only fetch the appointmentDate field
+    },
+  });
+
+  // Return the appointmentDate as Date objects
+  return appointments.map(
+    (appointment) => new Date(appointment.appointmentDate)
+  );
+}
+
 // Helper function to check if the appointment is exactly on the hour
 function isOnTheHour(date) {
   return date.getMinutes() === 0 && date.getSeconds() === 0;

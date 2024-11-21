@@ -1,9 +1,14 @@
-import { addAppointment, getExistingAppointments } from "@/model/appointments";
+import {
+  addAppointment,
+  getExistingAppointmentsTimes,
+} from "@/model/appointments";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
   try {
-    const existingAppointments = await getExistingAppointments();
+    const date = new URL(req.url).searchParams.get("date");
+
+    const existingAppointments = await getExistingAppointmentsTimes(date);
 
     return NextResponse.json(existingAppointments, { status: 200 });
   } catch (error) {
