@@ -1,60 +1,43 @@
-import { Box, Button, Grid2, TextField, Typography } from "@mui/material"
+import { Button, Input } from "@nextui-org/react";
 
-export default function AddEmployeeForm({employee, handleSubmit}) {
+export default function AddEmployeeForm({ employee, handleSubmit }) {
   return (
-    <Box sx={{ width: '100%', maxWidth: 400, margin: 'auto', padding: 2 }}>
-      <Typography variant="h5" gutterBottom>
+    <div className="w-full max-w-md mx-auto p-4">
+      <h5 className="mb-4 text-center">
         {employee ? "Update Employee" : "Add New Employee"}
-      </Typography>
-      <form action={handleSubmit}>
-        <Grid2 container spacing={2}>
-          <Grid2 xs={12}>
-            <TextField
-              defaultValue={employee?.name}
-              name="name"
-              label="Name"
-              variant="outlined"
-              fullWidth
-              required
-            />
-          </Grid2>
+      </h5>
 
-          <Grid2 xs={12}>
-            <TextField
-              defaultValue={employee?.email}
-              name="email"
-              type='email'
-              label="E-mail"
-              variant="outlined"
-              fullWidth
-              required
-            />
-          </Grid2>
+      <form action={handleSubmit} className="space-y-4">
+        <Input
+          defaultValue={employee?.name}
+          name="name"
+          label="Name"
+          fullWidth
+          isRequired
+        />
 
-          <Grid2 xs={12}>
-            <TextField
-              defaultValue={employee?.salary}
-              name="salary"
-              label="Salary"
-              variant="outlined"
-              fullWidth
-              type="number"
-              required
-            />
-          </Grid2>
+        <Input
+          defaultValue={employee?.email}
+          name="email"
+          label="E-mail"
+          type="email"
+          fullWidth
+          isRequired
+        />
 
-          <Grid2 xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-            >
-              {employee ? "Update Employee" : "Add Employee"}
-            </Button>
-          </Grid2>
-        </Grid2>
+        <Input
+          defaultValue={employee?.salary}
+          name="salary"
+          label="Salary"
+          type="number"
+          fullWidth
+          isRequired
+        />
+
+        <Button type="submit" fullWidth>
+          {employee ? "Update Employee" : "Add Employee"}
+        </Button>
       </form>
-    </Box>
-  )
+    </div>
+  );
 }

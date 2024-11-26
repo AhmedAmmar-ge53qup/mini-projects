@@ -1,47 +1,34 @@
 import EmployeesTable from "@/components/EmployeesTable";
 import Navbar from "@/components/NavBar";
-import { Container, Grid2, Typography, TextField, Button } from "@mui/material";
+import { Button, Input } from "@nextui-org/react"; // Import NextUI components
 import Link from "next/link";
 
 export default async function Home() {
-
   return (
     <>
       <Navbar />
-      <Container
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          height: "100vh",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
-        }}
-      >
-        <Typography
-          variant="h4"
-          component="h1"
-          sx={{ mb: 3 }}
-        >
+      <div className="flex flex-col justify-center items-center h-screen text-center px-4">
+        <p className="text-4xl font-semibold mb-3">
           Employee Management System
-        </Typography>
+        </p>
 
-        <TextField
+        <Input
+          aria-label="Search"
           label="Search"
-          variant="outlined"
+          variant="bordered"
           fullWidth
-          sx={{ mb: 3, maxWidth: 400 }}
+          className="mb-3 max-w-sm"
         />
 
-        <Grid2 container sx={{ width: "100%", maxWidth: 1200 }}>
-          <Link href="/crud-emp/add">
-            <Button variant="contained" color="primary" style={{ marginBottom: '20px' }}>
+        <div className="w-full max-w-5xl">
+          <Link href="/crud-emp/add" passHref>
+            <Button auto flat className="mb-5 w-full sm:w-auto">
               Add Employee
             </Button>
           </Link>
           <EmployeesTable />
-        </Grid2>
-      </Container>
+        </div>
+      </div>
     </>
   );
 }

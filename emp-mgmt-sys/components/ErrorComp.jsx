@@ -1,46 +1,44 @@
-import { Alert, AlertTitle, Box, Typography } from '@mui/material';
-import Link from 'next/link';
+import { Card, Button } from "@nextui-org/react";
+import Link from "next/link";
 
 export default function ErrorComp({ error, goBackPath }) {
-
   return (
-    <Box sx={{ padding: 2 }}>
-      <Alert severity="error">
-        <AlertTitle>{error.name || 'Error'}</AlertTitle>
-        <Typography variant="body2">
-          <strong>Status:</strong> {error.status || 'N/A'}
-        </Typography>
-        <Typography variant="body2">
-          <strong>Code:</strong> {error.code || 'N/A'}
-        </Typography>
-        <Typography variant="body2">
-          <strong>Message:</strong> {error.message || 'An unknown error occurred.'}
-        </Typography>
+    <div className="p-4">
+      <Card shadow={false} className="border border-red-500 p-4">
+        <h3 className="text-xl font-bold text-red-500">{error.name || "Error"}</h3>
+
+        <p>
+          <strong>Status:</strong> {error.status || "N/A"}
+        </p>
+        <p>
+          <strong>Code:</strong> {error.code || "N/A"}
+        </p>
+        <p>
+          <strong>Message:</strong> {error.message || "An unknown error occurred."}
+        </p>
 
         {error.reasons && error.reasons.length > 0 && (
-          <Box sx={{ marginTop: 2 }}>
-            <Typography variant="body2">
-              <strong>Reasons:</strong>
-            </Typography>
+          <div className="mt-2">
+            <p><strong>Reasons:</strong></p>
             <ul>
               {error.reasons.map((reason, index) => (
                 <li key={index}>
-                  <Typography variant="body2">{reason}</Typography>
+                  <p>{reason}</p>
                 </li>
               ))}
             </ul>
-          </Box>
+          </div>
         )}
 
         {/* Link to homepage */}
-        <Box sx={{ marginTop: 2 }}>
+        <div className="mt-4">
           <Link href={goBackPath ?? "/"}>
-            <Typography variant="body2" sx={{ color: 'primary.main', textDecoration: 'underline' }}>
+            <Button auto flat color="primary">
               Go back to homepage
-            </Typography>
+            </Button>
           </Link>
-        </Box>
-      </Alert>
-    </Box>
+        </div>
+      </Card>
+    </div>
   );
 }

@@ -1,76 +1,73 @@
-import { TextField, Button, Typography, Box, Container } from '@mui/material';
-import Link from 'next/link';
-import { signup } from './actions';
+import { Button, Input } from "@nextui-org/react"; // Import NextUI components
+import Link from "next/link";
+import { signup } from "./actions";
 
 export default function SignUpPage() {
   return (
-    <Container maxWidth="xs">
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          marginTop: 8,
-          padding: 2,
-          boxShadow: 3,
-          borderRadius: 2,
-        }}
-      >
-        <Typography variant="h5" component="h1" gutterBottom>
-          Sign Up
-        </Typography>
-        <form action={signup} style={{ width: '100%' }}>
-          <TextField
+    <div className="flex justify-center items-center h-scree">
+      <div className="w-full max-w-md p-8 shadow-lg rounded-lg">
+        <h3 className="text-center mb-6">Sign Up</h3>
+
+        <form action={signup} className="space-y-4">
+          <Input
             label="Email"
             type="email"
-            name="email" 
-            variant="outlined"
+            name="email"
             fullWidth
-            margin="normal"
-            required
+            isRequired
+            aria-label="Email"
+            clearable
+            bordered
+            placeholder="Enter your email"
           />
-          <TextField
+
+          <Input
             label="Password"
             type="password"
             name="password"
-            variant="outlined"
             fullWidth
-            margin="normal"
-            required
+            isRequired
+            aria-label="Password"
+            clearable
+            bordered
+            placeholder="Enter your password"
           />
-          <TextField
+
+          <Input
             label="Confirm Password"
             type="password"
-            name="confirmPassword"  // Ensures the form field is captured in formData
-            variant="outlined"
+            name="confirmPassword"
             fullWidth
-            margin="normal"
-            required
+            isRequired
+            aria-label="Confirm Password"
+            clearable
+            bordered
+            placeholder="Confirm your password"
           />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            sx={{ marginTop: 2 }}
-          >
+
+          <Button type="submit" fullWidth color="primary" className="mt-4">
             Sign Up
           </Button>
         </form>
 
-        <Box sx={{ marginTop: 2, textAlign: 'center' }}>
+        <div className="mt-6 text-center">
+          <span className="mr-2">Already have an account?</span>
           <Link href="/auth/login" passHref>
-            <Button>
-              {"Already have an account? Log in"}
-            </Button>
+            <span className="text-blue-500 hover:underline cursor-pointer">
+              Log in
+            </span>
           </Link>
-          <Link href="/auth/forgot-password" passHref>
-            <Button>
-              Forgot your password?
-            </Button>
-          </Link>
-        </Box>
-      </Box>
-    </Container>
+
+          <div className="mt-2">
+            <span className="mr-2">Forgot your password?</span>
+            <Link href="/auth/forgot-password" passHref>
+              <span className="text-blue-500 hover:underline cursor-pointer">
+                Reset here
+              </span>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
