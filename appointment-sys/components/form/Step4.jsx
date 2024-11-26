@@ -1,6 +1,10 @@
 import { TextField, Typography, Box } from "@mui/material";
 
-export default function Step4({ formData, handleChange, status, service, appointmentDate }) {
+export default function Step4({ formData, handleChange, status, service, appointmentDate, appointmentTime }) {
+
+    const displayDate = new Date(appointmentDate);
+    displayDate.setHours(appointmentTime);
+
     return (
         <Box>
             {/* Display Full Name */}
@@ -43,7 +47,7 @@ export default function Step4({ formData, handleChange, status, service, appoint
             <Box sx={{ marginBottom: 2 }}>
                 <Typography variant="h6" color="textPrimary">Appointment Date</Typography>
                 <TextField
-                    value={appointmentDate ? new Date(appointmentDate).toUTCString() : 'Not Selected'}
+                    value={appointmentDate ? displayDate.toLocaleString() : 'Not Selected'}
                     variant="outlined"
                     fullWidth
                     disabled

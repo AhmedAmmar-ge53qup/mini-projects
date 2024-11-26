@@ -54,10 +54,13 @@ export default function AppointmentForm() {
         axios.post('/api/appointments', { ...formData, appointmentDate: fullAppointmentDate, status, service })
             .then(res => {
                 console.log("Appointment Added: ", res.data);
+                setActiveStep(4); // Go to the FinalStep after successful submission
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                alert(`${err.response.data.error.match(/\(`(.*?)`\)/)[1]} Already Exists`);
+            });
 
-        setActiveStep(4); // Go to the FinalStep after successful submission
+
     }
 
     // Handle next step
@@ -146,7 +149,7 @@ export default function AppointmentForm() {
                             setAppointmentTime={setAppointmentTime}
                         />
                     )}
-                    {activeStep === 3 && <Step4 formData={formData} handleChange={handleChange} status={status} service={service} appointmentDate={appointmentDate} />}
+                    {activeStep === 3 && <Step4 formData={formData} handleChange={handleChange} status={status} service={service} appointmentDate={appointmentDate} appointmentTime={appointmentTime} />}
                     {activeStep === 4 && <FinalStep onRestart={handleRestart} />}
 
                     {activeStep < 4 && (

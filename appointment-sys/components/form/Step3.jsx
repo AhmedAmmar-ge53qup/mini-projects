@@ -72,7 +72,7 @@ export default function Step3({
             </LocalizationProvider>
 
             {/* Time Picker - Always visible, but options are conditional */}
-            <FormControl fullWidth sx={{ marginTop: 2 }}>
+            <FormControl fullWidth sx={{ marginTop: 2 }} required error={!!formErrors.status}>
                 <InputLabel>Time</InputLabel>
                 <Select
                     value={appointmentTime || ""}
