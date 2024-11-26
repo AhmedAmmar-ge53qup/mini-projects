@@ -34,8 +34,8 @@ The project is deployed at: [Appointment System](https://appointment-sys-theta.v
 
 1. Clone the repository:  
    ```bash
-   git clone <repository-url>
-   cd appointment-system
+   git clone https://github.com/AhmedAmmar-ge53qup/mini-projects
+   cd appointment-sys
    ```
 
 2. Install dependencies:  

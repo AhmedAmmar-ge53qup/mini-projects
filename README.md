@@ -9,11 +9,11 @@ This repository contains two mini-projects built using the following tech stack:
 
 ## Projects
 
-1. **[Employee Management System](./employee-management-system)**  
+1. **[Employee Management System](./emp-mgmt-sys)**  
    A system to manage employee records with full CRUD functionality and protected routes using `middleware.js`.  
 
-2. **[Appointment System](./appointment-system)**  
-   Details to be provided in its specific README.
+2. **[Appointment System](./appointment-sys)**  
+   A feature-rich appointment booking system showcasing a multi-step form with client-side and server-side validation, conflict detection to prevent overlapping appointments, and options to manage bookings without authentication.
 
 Each project folder contains a README.md file with setup instructions and project-specific details.
 

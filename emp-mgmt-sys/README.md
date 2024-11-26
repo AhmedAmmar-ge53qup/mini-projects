@@ -29,8 +29,8 @@ The project is deployed at: [Employee Management System](https://emp-mgmt-sys.ve
 
 1. Clone the repository:  
    ```bash
-   git clone <repository-url>
-   cd employee-management-system
+   git clone https://github.com/AhmedAmmar-ge53qup/mini-projects
+   cd emp-mgmt-sys
    ```
 
 2. Install dependencies:  
