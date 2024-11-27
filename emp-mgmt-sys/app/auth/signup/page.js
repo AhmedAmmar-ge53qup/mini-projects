@@ -1,6 +1,7 @@
 import { Button, Input } from "@nextui-org/react"; // Import NextUI components
 import Link from "next/link";
 import { signup } from "./actions";
+import SignupFormSubmit from "./SIgnupFormSubmit";
 
 export default function SignUpPage() {
   return (
@@ -45,9 +46,7 @@ export default function SignUpPage() {
             placeholder="Confirm your password"
           />
 
-          <Button type="submit" fullWidth color="primary" className="mt-4">
-            Sign Up
-          </Button>
+          <SignupFormSubmit />
         </form>
 
         <div className="mt-6 text-center">

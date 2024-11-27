@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 
 export default function NavBar() {
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -18,6 +19,7 @@ export default function NavBar() {
   }, []);
 
   const handleSignOut = async () => {
+    setIsLoading(true);
     const supabase = createClient();
     await supabase.auth.signOut();
     router.refresh();
@@ -32,7 +34,7 @@ export default function NavBar() {
       {user ? (
         <NavbarContent>
           <p className="mr-4">{user.email}</p>
-          <Button auto flat color="danger" onClick={handleSignOut}>
+          <Button auto flat color="danger" onClick={handleSignOut} isLoading={isLoading}>
             Sign Out
           </Button>
         </NavbarContent>

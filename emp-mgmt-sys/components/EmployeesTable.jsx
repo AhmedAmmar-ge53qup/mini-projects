@@ -15,7 +15,6 @@ export default async function EmployeesTable() {
 
   async function handleEdit(formData) {
     "use server"
-    console.log("HELLO BRO");
 
     const id = formData.get('id');
     redirect(`/crud-emp/update?id=${id}`);

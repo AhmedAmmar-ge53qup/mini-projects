@@ -1,7 +1,13 @@
 "use client"
 import { Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Button } from '@nextui-org/react';
+import Link from 'next/link';
+import { useFormStatus } from 'react-dom';
+import DeleteEmpFormSubmit from './DeleteEmpFormSubmit';
 
 export default function EmployeesTableClient({ employees, handleEdit, handleDelete }) {
+
+    const status = useFormStatus();
+
     return (
         <Table aria-label="Employee Management Table">
             <TableHeader>
@@ -21,18 +27,12 @@ export default function EmployeesTableClient({ employees, handleEdit, handleDele
                         <TableCell>{employee.role}</TableCell>
                         <TableCell>
                             <div className="flex space-x-3">
-                                {/* Edit Button with Form */}
-                                <form action={handleEdit} className="inline-block">
-                                    <input name="id" type="hidden" value={employee.id} />
-                                    <Button type='submit' auto flat color='success' variant='ghost'>✏️</Button> {/* Edit Icon */}
-                                </form>
-
-                                {/* Delete Button */}
+                                <Link href={`/crud-emp/update?id=${employee.id}`}>
+                                    <Button auto flat color='success' variant='ghost'>✏️</Button> {/* Edit Icon */}
+                                </Link>
                                 <form action={handleDelete} className="inline-block">
                                     <input name="id" type="hidden" value={employee.id} />
-                                    <Button type="submit" auto flat color="danger" variant='ghost'>
-                                        🗑️ {/* Delete Icon */}
-                                    </Button>
+                                    <DeleteEmpFormSubmit />
                                 </form>
                             </div>
                         </TableCell>

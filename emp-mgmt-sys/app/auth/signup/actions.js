@@ -1,27 +1,25 @@
-"use server"
+"use server";
 
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
-import { createClient } from '@/utils/supabase/server'
-import { stringToBase64URL } from '@supabase/ssr'
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { createClient } from "@/utils/supabase/server";
+import { stringToBase64URL } from "@supabase/ssr";
 
 export async function signup(formData) {
-    const supabase = await createClient()
-  
-    // type-casting here for convenience
-    // in practice, you should validate your inputs
-    const data = {
-      email: formData.get('email'),
-      password: formData.get('password'),
-    }
+  const supabase = await createClient();
 
-    const { error } = await supabase.auth.signUp(data)
-    if (error)
-    {
-      const errWithMsg = {...error, message: error.message};
-      redirect(`/error?error=${stringToBase64URL(JSON.stringify(errWithMsg))}`);
-    }
-  
-    revalidatePath('/', 'layout')
-    redirect('/')
+  const data = {
+    email: formData.get("email"),
+    password: formData.get("password"),
+    confirmPassword: formData.get("confirmPassword"),
+  };
+
+  const { error } = await supabase.auth.signUp(data);
+  if (error) {
+    const errWithMsg = { ...error, message: error.message };
+    redirect(`/error?error=${stringToBase64URL(JSON.stringify(errWithMsg))}`);
   }
+
+  revalidatePath("/", "layout");
+  redirect("/");
+}

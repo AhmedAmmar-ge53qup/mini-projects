@@ -21,7 +21,7 @@ export default async function Home() {
         />
 
         <div className="w-full max-w-5xl">
-          <Link href="/crud-emp/add" passHref>
+          <Link href="/crud-emp/add">
             <Button auto flat className="mb-5 w-full sm:w-auto">
               Add Employee
             </Button>

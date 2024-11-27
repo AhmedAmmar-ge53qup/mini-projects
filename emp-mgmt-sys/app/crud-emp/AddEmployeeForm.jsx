@@ -1,4 +1,5 @@
 import { Button, Input } from "@nextui-org/react";
+import AddEmpFormSubmit from "./AddEmpFormSubmit";
 
 export default function AddEmployeeForm({ employee, handleSubmit }) {
   return (
@@ -34,9 +35,7 @@ export default function AddEmployeeForm({ employee, handleSubmit }) {
           isRequired
         />
 
-        <Button type="submit" fullWidth>
-          {employee ? "Update Employee" : "Add Employee"}
-        </Button>
+        <AddEmpFormSubmit employee={employee} />
       </form>
     </div>
   );

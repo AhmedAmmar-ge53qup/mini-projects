@@ -1,6 +1,7 @@
 import { Button, Input } from "@nextui-org/react";
 import Link from "next/link";
 import { login } from "./actions";
+import LoginFormSubmit from "./LoginFormSubmit";
 
 export default function LoginPage() {
   return (
@@ -33,9 +34,7 @@ export default function LoginPage() {
             placeholder="Enter your password"
           />
 
-          <Button type="submit" fullWidth color="primary" className="mt-4">
-            Log in
-          </Button>
+          <LoginFormSubmit />
         </form>
 
         <div className="mt-6 text-center">
