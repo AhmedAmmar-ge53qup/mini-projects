@@ -12,14 +12,6 @@ export default async function Home() {
           Employee Management System
         </p>
 
-        <Input
-          aria-label="Search"
-          label="Search"
-          variant="bordered"
-          fullWidth
-          className="mb-3 max-w-sm"
-        />
-
         <div className="w-full max-w-5xl">
           <Link href="/crud-emp/add">
             <Button auto flat className="mb-5 w-full sm:w-auto">

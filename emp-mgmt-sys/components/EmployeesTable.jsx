@@ -13,12 +13,5 @@ export default async function EmployeesTable() {
     redirect('/');
   };
 
-  async function handleEdit(formData) {
-    "use server"
-
-    const id = formData.get('id');
-    redirect(`/crud-emp/update?id=${id}`);
-  };
-
-  return <EmployeesTableClient employees={employees} handleDelete={handleDelete} handleEdit={handleEdit} />;
+  return <EmployeesTableClient employees={employees} handleDelete={handleDelete} />;
 };
