@@ -1,7 +1,7 @@
 import { Button, Input } from "@nextui-org/react"; // Import NextUI components
 import Link from "next/link";
 import { signup } from "./actions";
-import SignupFormSubmit from "./SIgnupFormSubmit";
+import SignupFormSubmit from "./SignupFormSubmit";
 
 export default function SignUpPage() {
   return (
