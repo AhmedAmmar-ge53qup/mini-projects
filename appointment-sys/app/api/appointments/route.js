@@ -2,6 +2,7 @@ import {
   addAppointment,
   getExistingAppointmentsTimes,
 } from "@/model/appointments";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
@@ -20,6 +21,7 @@ export async function POST(req) {
   try {
     const appointment = await req.json();
     const newAppointment = await addAppointment(appointment);
+    revalidatePath("/appointments");
 
     return NextResponse.json(newAppointment, { status: 201 });
   } catch (error) {
