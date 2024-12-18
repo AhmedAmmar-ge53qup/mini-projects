@@ -68,6 +68,7 @@ export default function Step3({
                     views={["day"]} // Only show the day selection (no time)
                     inputProps={{ min: new Date().toISOString().split("T")[0] }} // Disable past dates in the input field
                     fullWidth
+                    format="DD/MM/YYYY"  // This ensures the full date (day, month, year) is shown in the input
                 />
             </LocalizationProvider>
 
